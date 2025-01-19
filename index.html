@@ -126,7 +126,7 @@
     }
 
     #chatContainer.container.open,
-    #questionsBody.questionsBody.open {
+    .desktopVersion.open {
       transform: translateX(0);
     }
 
@@ -213,8 +213,12 @@
       border-bottom-left-radius: 0;
     }
 
+    .mobileVersion {
+      display: none;
+    }
     /* Questions */
-    .questionsBody {
+    .desktopVersion {
+      display: block;
       font-family: var(--baseFont);
       font-weight: var(--baseFontWeight);
       position: absolute;
@@ -280,7 +284,7 @@
 
 /* 
     OLD VERSION - At the top of input
-    .questionsBody {
+    .questionsBody.mobileVersion {
       background-color: #1c1f21;
       border-top: 1px solid #000;
       overflow-y: hidden;
@@ -352,9 +356,12 @@
     color: #000;
     border-radius: 5px;
     margin-bottom: 6px;
-    font-size: 13px;
+    font-size: 12px;
+    font-weight: 400;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: calc(100% - 30px);
+    margin-left: 15px;
   }
   #chatbotError.chatbotError a {
     color: #000000; /* Link matches text color */
@@ -619,36 +626,57 @@
     #chatContainer.container {
       width: calc(100vw - 10px);
       right: 5px;
-      height: 55vh;
-      height: 55svh;
-    }    
-    #questionsBody.questionsBody {
-      right: 20px;
-      transition: unset;
-      bottom: 66vh;
-      bottom: 66svh;
-      max-height: 30vh;
-      width: calc(100vw - 50px);
-      height: auto;
+      height: 80vh;
+      height: 80svh;
+      overflow: hidden;
+    }  
+
+    .desktopVersion {
+      display: none;
+    }
+    
+    /* Mobile version */
+    .mobileVersion {
+      display: flex;
+      position: unset;
+      padding: unset;
+
+      width: unset;
+      max-height: 6vh;
+      height: 0;
+      overflow: scroll;
       transform: unset;
-      transform: translateY(100%);
-      transition: transform .3s ease-in-out;
+      transform: translateX(100%);
+      transition: all 0.3s ease-in-out;
     }
-    #questionsBody.questionsBody.open {
-      transform: translateY(0%);
+
+    .questions {
+      display: flex;
+      flex-direction: row; 
+      gap: 10px; 
+      padding: 2px 0px;
+      width: 100%;
+      margin-left: 15px;
     }
-    .question-div{
-      min-height: 50px;
+    .mobileVersion.open {
+      transform: translateX(0%);
+      height: 40px;
+      padding-top: 5px;
     }
-    .question-div:hover{
+
+    .question-div {
+      background-color: var(--colorDark); 
+      border: none;
+      border-radius: 5px;
+      white-space: nowrap;
+      font-size: .7rem;
+    }
+    .question-div:hover {
       transform: unset;
     }
     #questionsBody > #questions .placeholder {
+      height: 30px;
       margin: 0;
-      height: 60px;
-    }
-    .send-button i{
-      color: var(--colorDark);
     }
   }
   </style>
@@ -685,11 +713,13 @@
         <!-- Messages will be dynamically inserted here -->
       </div>
     </div>
-    <!-- <div class="questionsBodyy hide">
-      <div class="questionss" id="questionss">
-
+      <div class="questionsBody mobileVersion hide" id="questionsBody">
+        <div class="questions" id="questions">
+          <div class="placeholder"></div>
+          <div class="placeholder"></div>
+          <div class="placeholder"></div>
+        </div>
       </div>
-    </div> -->
       <div class="chatbotError hide" id="chatbotError">
         <p>Opps! Något gick fel, vänligen kontakta oss på <a href="+46733188885">+46 733 188 885</a></p>
       </div>
@@ -702,7 +732,7 @@
       <p class="chatBotLicens">Powered by <a target="_blank" href="https://zellosystems.se" class="font-semibold">Zello Systems</a>.</p>
   </div>
 
-  <div class="questionsBody hide" id="questionsBody">
+  <div class="questionsBody desktopVersion hide" id="questionsBody">
     <div class="questions" id="questions">
       <!-- Questions will be dynamically inserted here -->
       <div class="placeholder"></div>
@@ -715,7 +745,7 @@
     // API URL and endpoints
     let apiURL = 'https://zs-aichatbot-o6e4mcsu0-mkaans-projects.vercel.app';
     apiURL = 'http://localhost:8080';
-    apiURL = 'https://zs-aichatbot.onrender.com';
+    // apiURL = 'https://zs-aichatbot.onrender.com';
     const endPoint = '/zellosystemsai';
     const endPointSavedData = '/getallsaveddata';
     const model_question_generate = '/generateRelatedQuestions';
@@ -745,9 +775,34 @@
     const commentIcon = document.getElementById('commentIcon');
     const inputField = document.getElementById('inputField');
     const messagesContainer = document.getElementById('messages');
-    const questionsBody = document.querySelector('.questionsBody');
-    const questionsContainer = document.getElementById('questions');
     const toggleQuestionSuggestionsBtn = document.getElementById("toggleQuestionsSuggestionsBtn");
+
+    let questionsBody = null;
+    let questionsContainer = null;
+    // Function to update the variable based on screen size
+    const updateQuestionsBody = () => {
+      if (!toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions")) {
+        console.log(!toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions"));
+        toggleQuestionSuggestionsBtn.click();
+      }
+      if (window.innerWidth >= 600) {
+        questionsBody = document.querySelector('.desktopVersion');
+        questionsContainer = document.querySelector('.desktopVersion > .questions');
+      } else {
+        questionsBody = document.querySelector('.mobileVersion');
+        questionsContainer = document.querySelector('.mobileVersion > .questions');
+      }
+
+      if (relatedQuestions.length > 0) {
+        renderQuestions();
+      }
+    };
+
+    // Initialize the variable on load
+    updateQuestionsBody();
+    // Add an event listener to track screen size changes
+    window.addEventListener("resize", updateQuestionsBody);
+    
     const placeholder = document.querySelector('.placeholder');
     const chatbotErrorDiv = document.getElementById("chatbotError");
 
@@ -951,7 +1006,6 @@
 
         if(keepQuestionsSuggestion && !toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions")){
           questionsBody.classList.remove('hide');
-          // questionsBody.classList.add('hide');
           setTimeout(() => {
             questionsBody.classList.add('open');
           }, 100);
@@ -978,6 +1032,9 @@
     });
 
     const resetAll = () => {
+      if (!chatbotErrorDiv.classList.contains("hide")) {
+        chatbotErrorDiv.classList.add("hide");
+      }
       messages = [];
       messagesContainer.innerHTML = "";
       messages.push(
@@ -1053,15 +1110,99 @@
       }
     };
   
+    // const calculateTokens = (conversation) => {
+    //   const encodingMultiplier = 1.5; // Approximation: 1 word ≈ 1.5 tokens
+    //   return conversation.reduce((total, message) => {
+    //     const messageTokens = Math.ceil(message.role.length * encodingMultiplier) +
+    //                           Math.ceil(message.content.length * encodingMultiplier);
+    //     return total + messageTokens;
+    //   }, 0);
+    // };
+
+    // // Function to handle the chat submission
+    // const handleChatSubmit = (e) => {      
+    //   e.preventDefault();  
+
+    //   if (chatInput.trim() !== '') {
+    //     // Calculate tokens and check limits
+    //     const maxTokens = 8192; // Maximum allowed tokens for the model
+    //     const safetyMargin = 500; // Reserve tokens for the response
+    //     let tokenCount = calculateTokens(conversation);
+
+    //     const userMessage = { role: "user", content: chatInput };
+    //     // Check if conversation is empty and chatInput exceeds the limit
+    //     if (conversation.length === 0) {
+    //       const inputTokenCount = calculateTokens([userMessage]); // Token count of chatInput alone
+    //       if (inputTokenCount > maxTokens - safetyMargin) {
+    //         chatbotErrorDiv.classList.remove("hide");
+    //         chatbotErrorDiv.innerHTML = `
+    //           <p>Din fråga är för lång! Vänligen korta ner den.</p>
+    //         `;
+    //         return;
+    //       }
+    //     }
+
+    //     setAiBotThinking(true);
+    //     // Add the user message to conversation
+    //     conversation.push(userMessage);
+
+    //     if (tokenCount > maxTokens - safetyMargin) {
+    //       // Truncate conversation to stay within limits
+    //       while (tokenCount > maxTokens - safetyMargin) {
+    //         conversation.shift(); // Remove the oldest message
+    //         tokenCount = calculateTokens(conversation);
+    //       }
+    //     }
+
+    //     // Clear the input
+    //     handleSendMessage();
+
+    //     // Fire the fetch request
+    //     sendChatRequest(chatInput, conversation);
+    //   }
+    // };
+
+    const calculateTokens = (conversation) => {
+      const encodingMultiplier = 1.5; // Approximation: 1 word ≈ 1.5 tokens
+      return conversation.reduce((total, message) => {
+        const messageTokens = Math.ceil(message.role.length * encodingMultiplier) +
+                              Math.ceil(message.content.length * encodingMultiplier);
+        return total + messageTokens;
+      }, 0);
+    };
+
     // Function to handle the chat submission
     const handleChatSubmit = (e) => {      
       e.preventDefault();  
-      if (chatInput) {
-        setAiBotThinking(true);
-  
+
+      if (chatInput.trim() !== '') {
+        const maxTokens = 8192; // Maximum allowed tokens for the model
+        const safetyMargin = 500; // Reserve tokens for the response
         const userMessage = { role: "user", content: chatInput };
-        // // Add the user message to conversation
+
+        // Calculate tokens for the conversation and new user message
+        let tokenCount = calculateTokens(conversation);
+
+        const inputTokenCount = calculateTokens([userMessage]); // Token count of chatInput alone
+        if (inputTokenCount > maxTokens - safetyMargin) {
+          chatbotErrorDiv.classList.remove("hide");
+          chatbotErrorDiv.innerHTML = `
+            <p>Din fråga är för lång! Vänligen korta ner den.</p>
+          `;
+          return;
+        }
+
+        // Add the user message to the conversation
         conversation.push(userMessage);
+        tokenCount += inputTokenCount; // Include the new message in the total token count
+
+        // Truncate the conversation if token count exceeds the limit
+        while (tokenCount > maxTokens - safetyMargin) {
+          conversation.shift(); // Remove the oldest message
+          tokenCount = calculateTokens(conversation); // Recalculate token count
+        }
+
+        setAiBotThinking(true);
 
         // Clear the input
         handleSendMessage();
@@ -1113,11 +1254,19 @@
 
           // Call the function to generate related questions and fetch saved data
           await generateRelatedQuestions(question, conversation);
-          await getSavedData();
+          // await getSavedData();
 
         } catch (err) {
           console.error("Error sending chat message:", err);
           chatbotErrorDiv.classList.remove("hide");
+          chatbotErrorDiv.innerHTML = `
+            <p>Opps! Något gick fel, vänligen kontakta oss på <a href="+46733188885">+46 733 188 885</a></p>
+          `;
+
+          if (!toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions")) {
+            toggleQuestionSuggestionsBtn.click();
+          }
+
         }finally{
           setAiBotThinking(false);
         }
@@ -1179,7 +1328,7 @@
     // Capture user input and update the chatInput variable
     inputField.addEventListener('input', (event) => {
       aiGeneratedQuestion = false;
-      chatInput = event.target.value;  // Update the chat input field's value      
+      chatInput = event.target.value;  // Update the chat input field's value     
     });
   </script>
 </body>
