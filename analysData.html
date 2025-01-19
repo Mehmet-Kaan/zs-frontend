@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <title>Zello Systems - Analys</title>
+    <style>
+        :root {
+            /* Global Colors */
+            --color-light-bg: #fff6e1;
+            --color-dark-bg: #121212;
+            --color-primary: #ff6a13;
+            --color-secondary: #1abc9c;
+            --color-accent: #2ecc71;
+            --color-tertiary: #2873b9;
+            --color-light-text: #ffffff;
+            --color-dark-text: #111111;
+            --color-bg-light: linear-gradient(135deg, #ffffff, #e9f7f0);
+            --color-bg-dark: linear-gradient(135deg, #121212, #181818);
+            --color-background-opacity: rgba(255, 255, 255, 0.1);
+            --color-border-light: rgba(0, 0, 0, 0.12);
+            --color-border-dark: rgba(255, 255, 255, 0.15);
+
+            /* Dark Mode */
+            --color-dark-primary: #fff6e1;
+            --color-dark-secondary: #ff6a13;
+            --color-dark-tertiary: #16a085;
+            --color-dark-accent: #27ae60;
+            --color-dark-bg-light: rgba(12, 50, 58, 0.75);
+            --color-dark-bg-dark: rgba(40, 105, 185, 0.9);
+            --color-dark-text-light: #000000;
+            --color-dark-text-dark: #ffffff;
+            --color-dark-bg-dark-opacity: rgba(0, 0, 0, 0.7);
+            --color-dark-border-light: rgba(255, 255, 255, 0.15);
+            --color-dark-border-dark: rgba(255, 255, 255, 0.3);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode Overrides */
+            --color-primary: var(--color-dark-primary);
+            --color-secondary: var(--color-dark-secondary);
+            --color-accent: var(--color-dark-accent);
+            --color-tertiary: var(--color-dark-tertiary);
+            --color-light-bg: var(--color-dark-bg-light);
+            --color-bg-light: var(--color-dark-bg-dark);
+            --color-light-text: var(--color-dark-text-light);
+            --color-dark-text: var(--color-dark-text-dark);
+            --color-background-opacity: var(--color-dark-bg-dark-opacity);
+            --color-border-light: var(--color-dark-border-light);
+            --color-border-dark: var(--color-dark-border-dark);
+        }
+
+        /* Smooth transition for theme changes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: var(--color-light-bg);
+            height: 100vh;
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+        }
+
+        #theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background: var(--color-primary);
+            color: var(--color-light-text);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        #theme-toggle i {
+            transition: color 0.3s ease;
+        }
+
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            height: 100%;
+            width: 100%;
+        }
+    
+        .sidebar {
+            width: 250px;
+            background: var(--color-primary);
+            color: var(--color-light-text);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+    
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+    
+        .sidebar ul {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .sidebar ul a {
+            margin: 10px 0;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--color-light-text);
+        }
+    
+        .sidebar .exit-button {
+            background: var(--color-light-text);
+            color: var(--color-primary);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+    
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+    
+        .header h1 {
+            margin: 0;
+        }
+    
+        .header #search-bar {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    
+        .filters {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+    
+        .filters label, .filters input, .filters button {
+            margin-right: 10px;
+        }
+    
+        .filters button {
+            background: var(--color-primary);
+            color: var(--color-light-text);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        .data-display {
+            max-width: 1000px;
+            margin: auto;
+        }
+    
+        .data-display table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--color-light-text);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        .data-display th, .data-display td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    
+        .data-display th {
+            background: var(--color-primary);
+            color: var(--color-light-text);
+        }
+    
+        .data-display tr:hover {
+            background: #f1f1f1;
+        }
+    
+        ul a {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        ul a:hover {
+            background-color: #f0f0f0;
+        }
+
+        ul a.active {
+            font-weight: bold;
+            color: #ff6a13;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 860px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 0;
+                display: flex;
+            }
+    
+            .sidebar ul {
+                display: flex;
+                flex-direction: row;
+                padding: unset;
+            }
+    
+            .dashboard {
+                flex-direction: column;
+            }
+    
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+    
+            .header #search-bar {
+                width: 100%;
+                margin-top: 10px;
+            }
+    
+            .filters {
+                flex-direction: column;
+            }
+    
+            .filters input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+    
+            .filters button {
+                width: 100%;
+            }
+    
+            .data-display table {
+                font-size: 14px;
+            }
+    
+            .filters label, .filters input, .filters button {
+               margin-right: 0px;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .sidebar h2 {
+                font-size: 18px;
+            }
+    
+            .sidebar ul a {
+                font-size: 14px;
+            }
+    
+            .filters label, .filters input, .filters button {
+                font-size: 14px;
+            }
+    
+            .data-display th, .data-display td {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Zello Systems</h2>
+            <ul>
+                <a title="View your dashboard" href="javascript:void(0)" onclick="showSection('data-dashboard', this)"><i class="fas fa-columns"></i> Dashboard</a>
+                <a title="View or edit your profile" href="javascript:void(0)" onclick="showSection('data-profile', this)"><i class="fas fa-user"></i> Profile</a>
+                <a title="Check your messages" href="javascript:void(0)" onclick="showSection('data-messages', this)"><i class="fas fa-envelope"></i> Messages</a>
+                <a title="View analytics and reports" href="javascript:void(0)" onclick="showSection('data-analytics', this)"><i class="fas fa-chart-line"></i> Analytics</a>
+                <a title="Manage settings" href="javascript:void(0)" onclick="showSection('data-settings', this)"><i class="fas fa-cogs"></i> Settings</a>
+            </ul>
+            <button id="theme-toggle">
+                <i class="fas fa-sun"></i> <!-- Sun icon for light mode -->
+            </button>
+            <button class="exit-button">Logout</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Section container for the content -->
+            <div id="data-dashboard" class="section" style="display:none;">
+                <header class="header">
+                    <h2>Dashboard</h2>
+                    <!-- <h1>JSON Data Viewer</h1> -->
+                    <input type="text" id="search-bar" placeholder="Search questions...">
+                </header>
+
+                <section class="filters">
+                    <label for="date-filter">Filter by Date:</label>
+                    <input type="date" id="date-filter">
+                    <button id="reset-filters">Reset</button>
+                </section>
+
+                <section class="data-display">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Question</th>
+                                <th>Total Tokens</th>
+                                <th>Chat Tokens</th>
+                                <th>Relevant Question Tokens</th>
+                                <th>Embedding Tokens</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-body">
+                            <!-- Rows will be populated here dynamically -->
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            
+            <div id="data-profile" class="section" style="display:none;">
+                <h2>Profile</h2>
+                <!-- Profile content goes here -->
+            </div>
+            
+            <div id="data-messages" class="section" style="display:none;">
+                <h2>Messages</h2>
+                <!-- Messages content goes here -->
+            </div>
+            
+            <div id="data-analytics" class="section" style="display:none;">
+                <h2>Analytics</h2>
+                <!-- Analytics content goes here -->
+            </div>
+            
+            <div id="data-settings" class="section" style="display:none;">
+                <h2>Settings</h2>
+                <!-- Settings content goes here -->
+            </div>
+        </main>
+    </div>
+    <script>
+        let apiURL = 'https://zs-aichatbot.onrender.com';
+        const endPointSavedData = '/getallsaveddata';
+        
+        const jsonData = [
+            {
+                date: "2025-01-13T01:24:07.705Z",
+                question: "Berätta mi",
+                total_token_used: 9756,
+                token_used_for_chat: 5260,
+                token_used_for_relevant_questions: 4490,
+                token_used_for_embedding_the_question: 6
+            },
+            {
+                date: "2025-01-13T20:46:30.180Z",
+                question: "who are you?",
+                total_token_used: 9766,
+                token_used_for_chat: 5287,
+                token_used_for_relevant_questions: 4475,
+                token_used_for_embedding_the_question: 4
+            }
+        ];
+
+        // Function to show a specific section and hide others
+        function showSection(sectionId, linkElement) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Remove 'active' class from all links
+            const links = document.querySelectorAll('ul li');
+            links.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show the selected section
+            const selectedSection = document.getElementById(sectionId);
+            selectedSection.style.display = 'block';
+
+            // Add 'active' class to the clicked link
+            linkElement.classList.add('active');
+        }
+
+        /////////////////////Getting Data////////////////
+        // Render table rows
+        const renderTableRows = (data) => {
+            const tableBody = document.getElementById('data-body');
+            tableBody.innerHTML = '';
+            data.forEach(item => {
+                const row = `
+                    <tr>
+                        <td>${new Date(item.date).toLocaleDateString()}</td>
+                        <td>${item.question}</td>
+                        <td>${item.total_token_used}</td>
+                        <td>${item.token_used_for_chat}</td>
+                        <td>${item.token_used_for_relevant_questions}</td>
+                        <td>${item.token_used_for_embedding_the_question}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        };
+
+        // Search functionality
+        document.getElementById('search-bar').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filteredData = jsonData.filter(item => 
+                item.question.toLowerCase().includes(query)
+            );
+            renderTableRows(filteredData);
+        });
+
+        // Date filter functionality
+        document.getElementById('date-filter').addEventListener('change', (e) => {
+            const selectedDate = e.target.value;
+            const filteredData = jsonData.filter(item => 
+                new Date(item.date).toISOString().split('T')[0] === selectedDate
+            );
+            renderTableRows(filteredData);
+        });
+
+        // Reset filters
+        document.getElementById('reset-filters').addEventListener('click', () => {
+            document.getElementById('search-bar').value = '';
+            document.getElementById('date-filter').value = '';
+            renderTableRows(jsonData);
+        });
+
+        // Initial render
+        renderTableRows(jsonData);
+
+        ////////////////////Themes//////////////////////
+        //Toggles the theme
+      // Set the initial theme based on localStorage and toggle theme on button click
+        function toogleTheme() {
+            const themeToggleButton = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+            const themeIcon = themeToggleButton.querySelector('i');
+
+            // Set theme based on localStorage
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            if (currentTheme === 'dark') {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                htmlElement.removeAttribute('data-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+
+        // Toggle theme on button click (added only once)
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const htmlElement = document.documentElement;
+            const themeIcon = document.querySelector('#theme-toggle i');
+
+            if (htmlElement.getAttribute('data-theme') === 'dark') {
+                htmlElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // Call the function to set the initial theme
+        toogleTheme();
+
+
+        ////////////////////Data//////////////////////
+    
+        //Getting the saved data
+        async function getSavedData() {
+            try {
+                const response = await fetch(`${apiURL + endPointSavedData}`);
+                if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        let savedData = getSavedData();
+        console.log(savedData);
+
+    </script>
+</body>
+</html>
+

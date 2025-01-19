@@ -430,7 +430,7 @@
     width: calc(100% - 30px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    margin: 0px 0 8px 15px;
+    margin: 4px 0 8px 15px;
   }
   #inputField.input {
     flex: 1;
@@ -713,8 +713,9 @@
 
   <script>
     // API URL and endpoints
-    // const apiURL = 'http://localhost:8080';
-    const apiURL = 'https://zs-aichatbot-o6e4mcsu0-mkaans-projects.vercel.app';
+    let apiURL = 'https://zs-aichatbot-o6e4mcsu0-mkaans-projects.vercel.app';
+    apiURL = 'http://localhost:8080';
+    apiURL = 'https://zs-aichatbot.onrender.com';
     const endPoint = '/zellosystemsai';
     const endPointSavedData = '/getallsaveddata';
     const model_question_generate = '/generateRelatedQuestions';
