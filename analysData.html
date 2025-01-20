@@ -8,12 +8,12 @@
     <style>
         :root {
             /* Global Colors */
-            --color-light-bg: #fff6e1;
+            --color-light-bg: #c4dee7;
             --color-dark-bg: #121212;
-            --color-primary: #ff6a13;
-            --color-secondary: #1abc9c;
-            --color-accent: #2ecc71;
-            --color-tertiary: #2873b9;
+            --color-primary: #c4dee7;
+            --color-secondary: #40e0d0;
+            --color-accent: #40e0d0;
+            --color-tertiary: #397bd1;
             --color-light-text: #ffffff;
             --color-dark-text: #111111;
             --color-bg-light: linear-gradient(135deg, #ffffff, #e9f7f0);
@@ -34,6 +34,23 @@
             --color-dark-bg-dark-opacity: rgba(0, 0, 0, 0.7);
             --color-dark-border-light: rgba(255, 255, 255, 0.15);
             --color-dark-border-dark: rgba(255, 255, 255, 0.3);
+
+            --colorTurquoise: #40e0d0;
+            --colorTicinoBlue_axE6: rgba(40,134,213,0.9019607843137255);
+            --colorAztecTurquoise_axBF: rgba(0,201,225,0.7490196078431373);
+
+            --thirdColor: #c4dee7;
+            --fourthColor:#caf1ff;
+            --fifthColor:#397bd1;
+            --errorColor:#fa3f507d;
+
+            --userMessageColor: rgb(132, 196, 218);
+            --aiMessageColor: #f3f6ffde;
+
+            --baseFont:"Assistant","Open Sans","Helvetica Neue",Helvetica,"sans-serif";
+            --baseFontAlt:"One Montserrat","Helvetica Neue",Helvetica,sans-serif;
+            --baseFontWeight:399;
+            --lightFontWeight:320;
         }
 
         [data-theme="dark"] {
@@ -55,18 +72,18 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background: var(--color-light-bg);
+            background: var(--color-primary);
             height: 100vh;
             transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
         }
 
         #theme-toggle {
             position: absolute;
-            top: 20px;
+            bottom: 20px;
             right: 20px;
             padding: 10px 15px;
             background: var(--color-primary);
-            color: var(--color-light-text);
+            color: var(--color-dark-text);
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -85,7 +102,7 @@
     
         .sidebar {
             width: 250px;
-            background: var(--color-primary);
+            background: var(--color-dark-bg);
             color: var(--color-light-text);
             padding: 20px;
             display: flex;
@@ -102,6 +119,7 @@
             padding: 0;
             display: flex;
             flex-direction: column;
+            margin: auto;
         }
     
         .sidebar ul a {
@@ -183,7 +201,7 @@
         }
     
         .data-display th {
-            background: var(--color-primary);
+            background: var(--color-dark-bg);
             color: var(--color-light-text);
         }
     
@@ -197,12 +215,12 @@
         }
 
         ul a:hover {
-            background-color: #f0f0f0;
+            color: var(--color-primary);
         }
 
         ul a.active {
-            font-weight: bold;
-            color: #ff6a13;
+            /* font-weight: bold; */
+            color: var(--color-primary);
         }
 
         /* Responsive Design */
@@ -218,6 +236,7 @@
                 display: flex;
                 flex-direction: row;
                 padding: unset;
+                margin: auto;
             }
     
             .dashboard {
@@ -279,7 +298,7 @@
     <div class="dashboard">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <h2>Zello Systems</h2>
+            <h2>Zello Systems / Data</h2>
             <ul>
                 <a title="View your dashboard" href="javascript:void(0)" onclick="showSection('data-dashboard', this)"><i class="fas fa-columns"></i> Dashboard</a>
                 <a title="View or edit your profile" href="javascript:void(0)" onclick="showSection('data-profile', this)"><i class="fas fa-user"></i> Profile</a>
@@ -290,7 +309,7 @@
             <button id="theme-toggle">
                 <i class="fas fa-sun"></i> <!-- Sun icon for light mode -->
             </button>
-            <button class="exit-button">Logout</button>
+            <!-- <button class="exit-button">Logout</button> -->
         </aside>
 
         <!-- Main Content -->
@@ -300,10 +319,10 @@
                 <header class="header">
                     <h2>Dashboard</h2>
                     <!-- <h1>JSON Data Viewer</h1> -->
-                    <input type="text" id="search-bar" placeholder="Search questions...">
                 </header>
-
+                
                 <section class="filters">
+                    <input type="text" id="search-bar" placeholder="Search questions...">
                     <label for="date-filter">Filter by Date:</label>
                     <input type="date" id="date-filter">
                     <button id="reset-filters">Reset</button>
