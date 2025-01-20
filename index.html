@@ -621,7 +621,7 @@
       background-color: rgba(132, 196, 218, 0.3);
     }
   }
-
+  
   @media (max-width: 600px) {
     #chatContainer.container {
       width: calc(100vw - 10px);
@@ -638,8 +638,8 @@
     /* Mobile version */
     .mobileVersion {
       display: flex;
-      position: unset;
-      padding: unset;
+      position: static;
+      padding: 0;
 
       width: unset;
       max-height: 6vh;
@@ -648,23 +648,26 @@
       transform: unset;
       transform: translateX(100%);
       transition: all 0.3s ease-in-out;
+      width: 100vw;
+      box-sizing: border-box;
+      margin-bottom: 2px;
+    }
+
+    .mobileVersion.open {
+      transform: translateX(0%);
+      height: 40px;
+      /* padding-top: 5px; */
     }
 
     .questions {
       display: flex;
       flex-direction: row; 
       gap: 10px; 
-      padding: 2px 0px;
-      width: 100%;
-      margin-left: 15px;
-    }
-    .mobileVersion.open {
-      transform: translateX(0%);
-      height: 40px;
-      padding-top: 5px;
+      padding-top: 2px;
+      padding-bottom: 2px;
       width: 100%;
     }
-
+  
     .question-div {
       background-color: var(--colorDark); 
       border: none;
