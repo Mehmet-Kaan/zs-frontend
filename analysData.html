@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <title>Zello Systems - Analys</title>
+    <title>Zello Systems - Data</title>
     <style>
         :root {
             /* Global Colors */
-            --color-light-bg: #c4dee7;
+            --color-light-bg: #ffffff;
+            /* --color-light-bg: #c4dee7; */
             --color-dark-bg: #121212;
-            --color-primary: #c4dee7;
+            /* --color-primary: #c4dee7; */
+            --color-primary: #52b7c3;
             --color-secondary: #40e0d0;
             --color-accent: #40e0d0;
             --color-tertiary: #397bd1;
@@ -35,6 +37,7 @@
             --color-dark-border-light: rgba(255, 255, 255, 0.15);
             --color-dark-border-dark: rgba(255, 255, 255, 0.3);
 
+            --color-logo: #52b7c3;
             --colorTurquoise: #40e0d0;
             --colorTicinoBlue_axE6: rgba(40,134,213,0.9019607843137255);
             --colorAztecTurquoise_axBF: rgba(0,201,225,0.7490196078431373);
@@ -72,7 +75,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background: var(--color-primary);
+            background: var(--color-light-bg);
             height: 100vh;
             transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
         }
@@ -88,6 +91,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease, color 0.3s ease;
+            margin: 0;
         }
         #theme-toggle i {
             transition: color 0.3s ease;
@@ -95,7 +99,7 @@
 
         .dashboard {
             display: flex;
-            flex-wrap: wrap;
+            /* flex-wrap: wrap; */
             height: 100%;
             width: 100%;
         }
@@ -104,17 +108,18 @@
             width: 250px;
             background: var(--color-dark-bg);
             color: var(--color-light-text);
-            padding: 20px;
+            padding: 0px 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            height: 100vh;
         }
     
-        .sidebar h2 {
-            margin-bottom: 20px;
+        .zelloLogo{
+            width: 190px;
+            padding-top: 20px;
         }
-    
         .sidebar ul {
             padding: 0;
             display: flex;
@@ -126,7 +131,8 @@
             margin: 10px 0;
             cursor: pointer;
             text-decoration: none;
-            color: var(--color-light-text);
+
+            color: var(--color-dark-primary);
         }
     
         .sidebar .exit-button {
@@ -141,50 +147,142 @@
         main {
             flex: 1;
             padding: 20px;
+            display: flex;
+            justify-content: center;
         }
     
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            position: relative;
         }
     
         .header h1 {
             margin: 0;
         }
     
-        .header #search-bar {
-            padding: 10px;
-            width: 300px;
-            border: 1px solid #ddd;
+        #toggle-view-btn {
+            /* position: absolute;
+            top: 0;
+            right: 0; */
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.4rem;
+            width: fit-content;
+            margin: 0;
+        }
+        
+        #toggle-view-btn i {
+            color: var(--color-dark-text);
+            transition: color 0.3s ease;
+        }
+
+        #toggle-view-btn:hover i {
+            color: var(--color-primary);
+        }
+
+        /* Shared Styles for Inputs */
+        .search-input,
+        .date-input {
+            padding: 8px 15px;
+            border: 2px solid var(--color-border-light);
             border-radius: 5px;
+            background: var(--color-bg-light);
+            color: var(--color-dark-text);
+            font-family: var(--baseFont);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-right: 10px;
+        }
+
+        .search-input{
+            flex: 1;
+            max-width: 550px;
+        }
+        .date-input{
+            width: 120px;
+        }
+        /* Search Input Specific */
+        .search-input::placeholder {
+            color: var(--color-dark-text);
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        .search-input:focus {
+            border-color: var(--color-primary);
+            background: var(--color-light-bg);
+            box-shadow: 0 0 8px var(--color-primary);
+        }
+
+        /* Date Input Specific */
+        .date-input::-webkit-calendar-picker-indicator {
+            color: var(--color-dark-text);
+            background: var(--color-primary);
+            border-radius: 50%;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .date-input:hover::-webkit-calendar-picker-indicator {
+            background: var(--color-secondary);
+        }
+
+        .date-input:focus {
+            border-color: var(--color-secondary);
+            background: var(--color-light-bg);
+            box-shadow: 0 0 8px var(--color-secondary);
+        }
+
+        /* Hover and Focus Effects */
+        .search-input:hover,
+        .date-input:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
         }
     
         .filters {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            justify-content: space-between;
         }
     
-        .filters label, .filters input, .filters button {
+        /* .filters label, .filters input, .filters button {
             margin-right: 10px;
         }
-    
+     */
         .filters button {
-            background: var(--color-primary);
+            background: var(--color-dark-text);
             color: var(--color-light-text);
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
+            transition: all .3s ease-in;
         }
     
+        .filters button:hover {
+            background: var(--color-primary);
+        }
+
         .data-display {
-            max-width: 1000px;
+            max-width: 1150px;
+            width: 70vw;
             margin: auto;
+            min-height: 300px;
+            max-height: 83vh;
+            overflow: scroll;
+            /* background: var(--color-light-text); */
+            position: relative;
         }
-    
+        
+        /* Table format */
         .data-display table {
             width: 100%;
             border-collapse: collapse;
@@ -192,6 +290,7 @@
             border-radius: 5px;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid;
         }
     
         .data-display th, .data-display td {
@@ -199,7 +298,20 @@
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
+
+        .data-display td {
+            max-width: 400px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-height: 200px;
+            overflow: scroll;
+            text-align: center;
+        }
     
+        .data-display td.questionTD{
+            text-align: left;
+        }
+
         .data-display th {
             background: var(--color-dark-bg);
             color: var(--color-light-text);
@@ -209,29 +321,156 @@
             background: #f1f1f1;
         }
     
+        /* Json format */
+        .json-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        .data-card {
+            padding: 15px;
+            background: var(--color-bg-light);
+            border-radius: 15px;
+            box-shadow: 0 0px 5px var(--color-dark-bg);
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: calc(100% - 40px);
+            margin-top: 1rem;
+        }
+        .data-header {
+            font-size: 16px;
+            color: var(--color-dark-text);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--color-primary);
+            padding-bottom: 5px;
+        }
+
+        .data-content {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--color-dark-text);
+        }
+ 
+
         ul a {
             padding: 10px;
             cursor: pointer;
         }
 
         ul a:hover {
-            color: var(--color-primary);
+            color: var(--color-logo);
         }
 
         ul a.active {
             /* font-weight: bold; */
-            color: var(--color-primary);
+            color: var(--color-logo);
+        }
+
+
+        /* Chatbot thinking animation */
+        .thinking {
+            background: #0000007d;
+            border: none;
+            cursor: not-allowed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            height: 86.5%;
+            width: 100%;
+            position: absolute;
+        }
+
+        .thinking .dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--color-light-bg);
+            border-radius: 50%;
+            animation: dot-flash 1.5s infinite;
+        }
+
+        .thinking .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .thinking .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .thinking .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes dot-flash {
+            0%, 80%, 100% {
+            opacity: 0;
+            }
+            40% {
+            opacity: 1;
+            }
+        }
+
+        @keyframes lds-ellipsis1 {
+            0% {
+            transform: scale(0);
+            }
+            100% {
+            transform: scale(1);
+            }
+        }
+
+        @keyframes lds-ellipsis3 {
+            0% {
+            transform: scale(1);
+            }
+            100% {
+            transform: scale(0);
+            }
+        }
+
+        @keyframes lds-ellipsis2 {
+            0% {
+            transform: translate(0, 0);
+            }
+            100% {
+            transform: translate(24px, 0);
+            }
+        } 
+
+        @keyframes pulse {
+            0% {
+            background-color: rgba(132, 196, 218, 0.3);
+            }
+            50% {
+            background-color: rgba(132, 196, 218, 0.5);
+            }
+            100% {
+            background-color: rgba(132, 196, 218, 0.3);
+            }
+        }
+
+        .hide{
+            display: none;
         }
 
         /* Responsive Design */
         @media (max-width: 860px) {
+            #theme-toggle{
+                top: 20px;
+                bottom: unset;
+            }
             .sidebar {
                 width: 100%;
                 height: auto;
                 padding: 0;
                 display: flex;
             }
-    
+            .sidebar h2 {
+                padding-left: 20px;
+            }
             .sidebar ul {
                 display: flex;
                 flex-direction: row;
@@ -254,7 +493,7 @@
             }
     
             .filters {
-                flex-direction: column;
+                flex-direction: row;
             }
     
             .filters input {
@@ -272,6 +511,16 @@
     
             .filters label, .filters input, .filters button {
                margin-right: 0px;
+            }
+            .thinking{
+                height: 76.5%;
+            }
+            .data-display{
+                width: 90vw;
+                max-height: 70vh;
+            }
+            .data-display td{
+                max-width: 100px;
             }
         }
     
@@ -298,9 +547,10 @@
     <div class="dashboard">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <h2>Zello Systems / Data</h2>
+            <img class="zelloLogo" src="https://impro.usercontent.one/appid/oneComWsb/domain/zellosystems.se/media/zellosystems.se/onewebmedia/Ska%CC%88rmavbild_2024-12-21_kl._14.47.42-removebg-preview.png?etag=W%2F%221804b-6766c730%22&sourceContentType=image%2Fpng&ignoreAspectRatio&resize=380%2B84"
+            alt="Zello Sytems AB">
             <ul>
-                <a title="View your dashboard" href="javascript:void(0)" onclick="showSection('data-dashboard', this)"><i class="fas fa-columns"></i> Dashboard</a>
+                <a title="View your dashboard" href="javascript:void(0)" class="default" onclick="showSection('data-dashboard', this)"><i class="fas fa-columns"></i> Dashboard</a>
                 <a title="View or edit your profile" href="javascript:void(0)" onclick="showSection('data-profile', this)"><i class="fas fa-user"></i> Profile</a>
                 <a title="Check your messages" href="javascript:void(0)" onclick="showSection('data-messages', this)"><i class="fas fa-envelope"></i> Messages</a>
                 <a title="View analytics and reports" href="javascript:void(0)" onclick="showSection('data-analytics', this)"><i class="fas fa-chart-line"></i> Analytics</a>
@@ -315,20 +565,27 @@
         <!-- Main Content -->
         <main>
             <!-- Section container for the content -->
-            <div id="data-dashboard" class="section" style="display:none;">
+            <div id="data-dashboard" class="section">
                 <header class="header">
                     <h2>Dashboard</h2>
-                    <!-- <h1>JSON Data Viewer</h1> -->
                 </header>
                 
                 <section class="filters">
-                    <input type="text" id="search-bar" placeholder="Search questions...">
-                    <label for="date-filter">Filter by Date:</label>
-                    <input type="date" id="date-filter">
+                    <button id="toggle-view-btn">
+                        <i id="toggle-icon" class="fas fa-table"></i>
+                      </button>
+
+                    <input type="search" id="search-bar" class="search-input" placeholder="Search...">
+                
+                    <input type="date" id="date-filter" class="date-input">
+
+                    <!-- <label for="date-filter">Filter by Date:</label>
+                    <input type="date" id="date-filter"> -->
+
                     <button id="reset-filters">Reset</button>
                 </section>
 
-                <section class="data-display">
+                <section class="data-display tableFormat">
                     <table>
                         <thead>
                             <tr>
@@ -344,6 +601,9 @@
                             <!-- Rows will be populated here dynamically -->
                         </tbody>
                     </table>
+                </section>
+                <section class="data-display json-body hide">
+                    <!-- Stored data will be dynamically inserted here -->
                 </section>
             </div>
             
@@ -370,29 +630,24 @@
     </div>
     <script>
         let apiURL = 'https://zs-aichatbot.onrender.com';
+        // apiURL = 'http://localhost:8080';
         const endPointSavedData = '/getallsaveddata';
-        
-        const jsonData = [
-            {
-                date: "2025-01-13T01:24:07.705Z",
-                question: "Berätta mi",
-                total_token_used: 9756,
-                token_used_for_chat: 5260,
-                token_used_for_relevant_questions: 4490,
-                token_used_for_embedding_the_question: 6
-            },
-            {
-                date: "2025-01-13T20:46:30.180Z",
-                question: "who are you?",
-                total_token_used: 9766,
-                token_used_for_chat: 5287,
-                token_used_for_relevant_questions: 4475,
-                token_used_for_embedding_the_question: 4
-            }
-        ];
 
+        let tableBody = document.getElementById('data-body');
+        let jsonBody = document.querySelector('.json-body');
+        let dateFilter = document.getElementById('date-filter');
+        let searchFilter = document.getElementById('search-bar');
+
+        let selectedDisplayFormat = "tableFormat";
+        let jsonData = [];
+        let filteredData = [...jsonData];
+        
         // Function to show a specific section and hide others
-        function showSection(sectionId, linkElement) {
+        async function showSection(sectionId, linkElement) {
+            if(sectionId == "data-dashboard" && jsonData.length == 0){                
+                jsonData = await getSavedData();
+            }
+
             // Hide all sections
             const sections = document.querySelectorAll('.section');
             sections.forEach(section => {
@@ -400,7 +655,7 @@
             });
 
             // Remove 'active' class from all links
-            const links = document.querySelectorAll('ul li');
+            const links = document.querySelectorAll('ul a');
             links.forEach(link => {
                 link.classList.remove('active');
             });
@@ -415,14 +670,22 @@
 
         /////////////////////Getting Data////////////////
         // Render table rows
-        const renderTableRows = (data) => {
-            const tableBody = document.getElementById('data-body');
+        const renderData = async (data) => {
             tableBody.innerHTML = '';
+            jsonBody.innerHTML = '';
+
+            //    Check if there's data to display
+            if (!data || data.length === 0) {
+                tableBody.innerHTML = "<p>No data available</p>";
+                jsonBody.innerHTML = "<p>No data available</p>";
+                return;
+            }
+
             data.forEach(item => {
                 const row = `
                     <tr>
                         <td>${new Date(item.date).toLocaleDateString()}</td>
-                        <td>${item.question}</td>
+                        <td class="questionTD">${item.question}</td>
                         <td>${item.total_token_used}</td>
                         <td>${item.token_used_for_chat}</td>
                         <td>${item.token_used_for_relevant_questions}</td>
@@ -431,35 +694,100 @@
                 `;
                 tableBody.innerHTML += row;
             });
+
+            // Loop through the data and create HTML elements dynamically
+            data.forEach((item) => {
+                // Create the card element
+                const card = document.createElement("div");
+                card.classList.add("data-card");
+                card.innerHTML = `
+                    <div class="data-header">
+                    <span class="data-date">${new Date(item.date).toLocaleString()}</span>
+                    </div>
+                    <div class="data-content">
+                    <p><strong>Question:</strong> ${item.question}</p>
+                    <p><strong>Tokens Used for Chat:</strong> ${item.token_used_for_chat}</p>
+                    <p><strong>Tokens Used for Relevant Questions:</strong> ${item.token_used_for_relevant_questions}</p>
+                    <p><strong>Tokens Used for Embedding:</strong> ${item.token_used_for_embedding_the_question}</p>
+                    <p><strong>Total Tokens Used:</strong> ${item.total_token_used}</p>
+                    <p><strong>Total Cost:</strong> ${item.cost}</p>
+                    </div>
+                `;
+
+                // Append the card to the container
+                jsonBody.appendChild(card);
+            });
+            
         };
 
         // Search functionality
-        document.getElementById('search-bar').addEventListener('input', (e) => {
+        searchFilter.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
-            const filteredData = jsonData.filter(item => 
+
+            // Start with the base data (filtered by date if a date is selected)
+            let baseData = dateFilter.value
+                ? jsonData.filter(item => 
+                    new Date(item.date).toISOString().split('T')[0] === dateFilter.value
+                )
+                : [...jsonData];
+
+            // Apply the search filter on top of the base data
+            filteredData = baseData.filter(item =>
                 item.question.toLowerCase().includes(query)
             );
-            renderTableRows(filteredData);
+
+            renderData(filteredData);
         });
 
         // Date filter functionality
-        document.getElementById('date-filter').addEventListener('change', (e) => {
+        dateFilter.addEventListener('change', (e) => {
             const selectedDate = e.target.value;
-            const filteredData = jsonData.filter(item => 
+            // Start with the full dataset or search-filtered data
+            let baseData = searchFilter.value
+                ? jsonData.filter(item =>
+                    item.question.toLowerCase().includes(searchFilter.value.toLowerCase())
+                )
+                : [...jsonData];
+
+            // Apply the date filter on top of the base data
+            filteredData = selectedDate ? baseData.filter(item =>
                 new Date(item.date).toISOString().split('T')[0] === selectedDate
-            );
-            renderTableRows(filteredData);
+            ): baseData;
+
+            renderData(filteredData);
+        });    
+    
+        document.getElementById('toggle-view-btn').addEventListener('click', async () => {
+            
+            const formatIcon = document.querySelector('#toggle-view-btn i');
+            jsonBody.classList.toggle("hide");
+            document.querySelector(".tableFormat").classList.toggle("hide");
+
+            if(selectedDisplayFormat == "tableFormat"){
+                selectedDisplayFormat = "jsonFormat";
+
+                formatIcon.classList.remove('fa-table');
+                formatIcon.classList.add('fa-database');
+            }else{
+                selectedDisplayFormat = "tableFormat";
+
+                formatIcon.classList.remove('fa-database');
+                formatIcon.classList.add('fa-table');
+            }
+
+            console.log(selectedDisplayFormat);
         });
 
         // Reset filters
-        document.getElementById('reset-filters').addEventListener('click', () => {
+        document.getElementById('reset-filters').addEventListener('click', async () => {
             document.getElementById('search-bar').value = '';
             document.getElementById('date-filter').value = '';
-            renderTableRows(jsonData);
+            // jsonData = await getSavedData();
+            renderData(jsonData);
         });
 
         // Initial render
-        renderTableRows(jsonData);
+        renderData(jsonData);
 
         ////////////////////Themes//////////////////////
         //Toggles the theme
@@ -503,11 +831,26 @@
         // Call the function to set the initial theme
         toogleTheme();
 
-
         ////////////////////Data//////////////////////
     
         //Getting the saved data
         async function getSavedData() {
+            tableBody.innerHTML = `
+                <div class="thinking">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            `;
+
+            jsonBody.innerHTML = `
+                <div class="thinking">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            `;
+
             try {
                 const response = await fetch(`${apiURL + endPointSavedData}`);
                 if (!response.ok) {
@@ -515,16 +858,14 @@
                 }
 
                 const data = await response.json();
-
+                renderData(data);
                 return data;
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
 
-        let savedData = getSavedData();
-        console.log(savedData);
-
+        document.querySelector(".default").click();
     </script>
 </body>
 </html>
