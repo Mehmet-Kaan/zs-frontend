@@ -748,10 +748,10 @@
   <script>
     // API URL and endpoints
     let apiURL = 'https://zs-aichatbot-o6e4mcsu0-mkaans-projects.vercel.app';
-    apiURL = 'http://localhost:8080';
     apiURL = 'https://zs-aichatbot.onrender.com';
     //ALternative - Other render account connected to "Taspunar" github account
     apiURL = 'https://zs-chatbot-backend.onrender.com';
+    apiURL = 'http://localhost:8080';
 
     const endPoint = '/zellosystemsai';
     const endPointSavedData = '/getallsaveddata';
@@ -969,9 +969,13 @@
         keepQuestionsSuggestion = false;
       }else{
         keepQuestionsSuggestion = true;
+        questionsBody.classList.remove("hide");
       }
       
-      questionsBody.classList.toggle("open");
+      setTimeout(() => {
+        questionsBody.classList.toggle("open");
+      }, 100);
+
       toggleQuestionSuggestionsBtn.classList.toggle("rotateToggleQuestions");
     }
 
@@ -997,40 +1001,55 @@
         `;
       }
       
-      const isChatboxOpen = chatContainer.classList.contains('open');
-      if (isChatboxOpen) {
+      const isChatboxClosed = chatContainer.classList.contains('open');
+      console.log(isChatboxClosed);
+
+      if (isChatboxClosed) {
         chatContainer.classList.remove('open');
         questionsBody.classList.remove('open');
       
         // questionsBody.classList.add('hide');
         setTimeout(() => {
-          questionsBody.classList.add('hide');
+          if (!questionsBody.classList.contains("hide")) {
+            questionsBody.classList.add('hide');
+          }
         }, 100);
 
         // toggleButton.style.transform = 'translateX(0)';  // Move the bubble back to original position  
       } else {
         chatContainer.classList.add('open');
 
-        if(keepQuestionsSuggestion && !toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions")){
-          questionsBody.classList.remove('hide');
+        // if(keepQuestionsSuggestion && !toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions")){
+        //   questionsBody.classList.remove('hide');
+        //   setTimeout(() => {
+        //     questionsBody.classList.add('open');
+        //   }, 100);
+        // }
+
+        if (keepQuestionsSuggestion && !toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions")) {
           setTimeout(() => {
-            questionsBody.classList.add('open');
-          }, 100);
+            questionsBody.classList.remove('hide');
+          }, 300);
+          if(relatedQuestions.length > 0){
+            setTimeout(() => {
+              questionsBody.classList.add("open");
+            }, 310);
+          }
         }
 
         // toggleButton.style.transform = 'translateX(130%)';  // Move the bubble off-screen
       }
 
-      if (keepQuestionsSuggestion && !toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions")) {
-        setTimeout(() => {
-          questionsBody.classList.remove('hide');
-        }, 300);
-        if(relatedQuestions.length > 0){
-          setTimeout(() => {
-            questionsBody.classList.add("open");
-          }, 310);
-        }
-      }
+      // if (keepQuestionsSuggestion && !toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions")) {
+      //   setTimeout(() => {
+      //     questionsBody.classList.remove('hide');
+      //   }, 300);
+      //   if(relatedQuestions.length > 0){
+      //     setTimeout(() => {
+      //       questionsBody.classList.add("open");
+      //     }, 310);
+      //   }
+      // }
     };
 
     commentIcon.addEventListener("click", (e)=>{    
@@ -1299,7 +1318,7 @@
 
         const data = await response.json();
 
-        let rawQuestions = data.questions;
+        let rawQuestions = data.questionss;
 
         let questionsArray = rawQuestions
           .replace(/\\n/g, '\n')
