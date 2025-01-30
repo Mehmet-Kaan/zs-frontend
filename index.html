@@ -751,7 +751,7 @@
     apiURL = 'https://zs-aichatbot.onrender.com';
     //ALternative - Other render account connected to "Taspunar" github account
     apiURL = 'https://zs-chatbot-backend.onrender.com';
-    apiURL = 'http://localhost:8080';
+    // apiURL = 'http://localhost:8080';
 
     const endPoint = '/zellosystemsai';
     const endPointSavedData = '/getallsaveddata';
@@ -1318,7 +1318,7 @@
 
         const data = await response.json();
 
-        let rawQuestions = data.questionss;
+        let rawQuestions = data.questions;
 
         let questionsArray = rawQuestions
           .replace(/\\n/g, '\n')
