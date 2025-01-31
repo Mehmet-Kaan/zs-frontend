@@ -6,7 +6,7 @@
   <title>AI Assistant</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <style>
-    /* CSS Styles */
+   
     :root{
       --primaryColor: #f0e8e3;
       --secondaryColor: #ef5e14;
@@ -32,9 +32,7 @@
     }
 
     body {
-      background-color: rgb(255, 255, 255);
-      height: 100vh;
-      margin: 0;
+      background-color: rgb(0, 0, 0);
     }
 
     .toggle-button {
@@ -73,18 +71,18 @@
         var(--colorTicinoBlue_axE6), 
         var(--colorTurquoise)
       );
-      opacity: 0; /* Initially hidden */
+      opacity: 0;
       transition: opacity 0.5s ease-in-out;
-      z-index: -1; /* Place behind the button content */
+      z-index: -1; 
       border-radius: 50%;
     }
 
     .toggle-button:hover::before {
-      opacity: 1; /* Fade in hover gradient */
+      opacity: 1;
     }
 
     .toggle-button:hover {
-      filter: grayscale(0); /* Lift grayscale effect */
+      filter: grayscale(0);
       transform: rotate(10deg);
     }
 
@@ -105,7 +103,7 @@
       transform: rotate(90deg);
     }
     #chatContainer.container {
-      /* font-family: "One Montserrat","Helvetica Neue",Helvetica,sans-serif; */
+
       font-family: var(--baseFont);
       background: linear-gradient(90deg, #fff,#c6dfe8);
       position: fixed;
@@ -159,7 +157,7 @@
       font-size: 20px;
       color: #ffffff;
       cursor: pointer;
-      margin-left: 10px; /* Space between the close and reset buttons */
+      margin-left: 10px;
       transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
     }
 
@@ -173,13 +171,12 @@
       padding: 10px;
       overflow-y: scroll;
       overflow-x: hidden;
-      /* background-color: var(--lightColor); */
+
       scroll-behavior: smooth;
       backdrop-filter: blur(10px);
-      /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-      /* border: 1px solid rgba(255, 255, 255, 0.2); */
+
       color: #fff;
-      /* background: linear-gradient(0deg, var(--primaryColor), #c4dee7); */
+
       background: linear-gradient(40deg, #fff, #c4dee7, #caf1ff);
     }
     .messages {
@@ -206,7 +203,7 @@
       border-bottom-right-radius: 0;
     }
 
-    .ai-message {
+    .system-message {
       align-self: flex-start;
       background-color: var(--aiMessageColor);
       color: var(--colorDark);
@@ -216,7 +213,7 @@
     .mobileVersion {
       display: none;
     }
-    /* Questions */
+
     .desktopVersion {
       display: block;
       font-family: var(--baseFont);
@@ -240,27 +237,26 @@
     }
 
     .question-div {
-       /* Semi-transparent background */
-        /* background-color: rgba(132, 196, 218, 0.5); */
+  
         background-color: rgba(132, 196, 218, 0.75);
         
-        color: #ffffff; /* White text */
-        border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
-        border-radius: 10px; /* Smooth rounded corners */
-        padding: 0.75rem; /* Spacing */
-        font-size: 14px; /* Text size */
-        cursor: pointer; /* Pointer cursor for interactivity */
-        transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.3); 
+        border-radius: 10px;
+        padding: 0.75rem;
+        font-size: 14px;
+        cursor: pointer; 
+        transition: background-color 0.3s ease, transform 0.2s ease;
         
-        /* Glassmorphism effects */
-        backdrop-filter: blur(10px); /* Frosted glass effect */
-        -webkit-backdrop-filter: blur(10px); /* Frosted glass effect for Safari */
+
+        backdrop-filter: blur(10px); 
+        -webkit-backdrop-filter: blur(10px); 
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
-                    0 1px 3px rgba(0, 0, 0, 0.06); /* Subtle shadow for depth */
+                    0 1px 3px rgba(0, 0, 0, 0.06); 
     }
 
     .question-div:hover {
-      /* background-color: var(--fifthColor); */
+   
       background-color: var(--userMessageColor);
       transform: scale(1.05); 
     }
@@ -282,72 +278,19 @@
       background-color: transparent; 
     }
 
-/* 
-    OLD VERSION - At the top of input
-    .questionsBody.mobileVersion {
-      background-color: #1c1f21;
-      border-top: 1px solid #000;
-      overflow-y: hidden;
-      padding: .5rem;
-    }
 
-    .questions {
-      display: flex;
-      flex-direction: row; 
-      gap: 10px; 
-      justify-content: flex-start;
-      
-      align-items: flex-start;
-    }
-
-    .question-div {
-      background-color: var(--secondaryColor); 
-      color: #ffffff; 
-      border: none;
-      border-radius: 5px; 
-      padding: 10px 15px; 
-      font-size: 14px;
-      cursor: pointer;
-      text-align: center;
-      white-space: nowrap; 
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    .question-div:hover {
-      background-color: #c3561f;
-      transform: scale(1.05); 
-    }
-
-    .question-div:active {
-      transform: scale(0.95); 
-    }
-
-    .questionsBody::-webkit-scrollbar {
-      height: 5px; 
-    }
-
-    .questionsBody::-webkit-scrollbar-thumb {
-      background-color: var(--secondaryColor); 
-      border-radius: 5px; 
-    }
-
-    .questionsBody::-webkit-scrollbar-track {
-      background-color: #1c1f21; 
-    } */
-
-  /* Placeholder for questions */
   #questionsBody > #questions .placeholder {
     width: 100%;
-    height: 50px; /* Adjust the height based on your layout */
-    background-color: rgba(132, 196, 218, 0.5); /* Light background for placeholder */
+    height: 50px; 
+    background-color: rgba(132, 196, 218, 0.5);
     border-radius: 10px;
-    margin: 0.5rem 0; /* Adjust spacing between placeholders */
+    margin: 0.5rem 0; 
     animation: pulse 1.5s infinite ease-in-out;
-    /* Glassmorphism effects */
-    backdrop-filter: blur(10px); /* Frosted glass effect */
-    -webkit-backdrop-filter: blur(10px); /* Frosted glass effect for Safari */
+    
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
-                0 1px 3px rgba(0, 0, 0, 0.06); /* Subtle shadow for depth */
+                0 1px 3px rgba(0, 0, 0, 0.06); 
   }
 
   #chatbotError.chatbotError {
@@ -364,67 +307,18 @@
     margin-left: 15px;
   }
   #chatbotError.chatbotError a {
-    color: #000000; /* Link matches text color */
-    font-weight: bold; /* Bold link for emphasis */
-    text-decoration: none; /* Remove underline */
+    color: #000000; 
+    font-weight: bold; 
+    text-decoration: none; 
   }
 
   #chatbotError.chatbotError a:hover {
-    text-decoration: underline; /* Add underline on hover */
+    text-decoration: underline; 
   }
 
   #chatbotError.chatbotError.show {
-    display: block; /* Show the element when needed */
+    display: block; 
   }
-
-/* Old input style */
-/* 
-  #chatForm.footer {
-    display: flex;
-    padding: 1rem;
-    padding-bottom: 10px;
-    background-color: #fff;
-    height: 2.5rem;
-    background: linear-gradient(70deg, #fff, #c4dee7);
-    padding-top: 5px;
-    font-weight: var(--lightFontWeight);
-  }
-  #inputField.input {
-    flex: 1;
-    padding: .5rem;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    margin-right: .5rem;
-    border: .2px solid;
-    background: unset;
-    font-weight: 320;
-  }
-  #inputField.input:focus {
-    outline: none;
-    box-shadow: 0 0 2px #000;
-  }
-  .send-button {
-    background-color: var(--colorDark);
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    margin-left: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 3.5rem;
-    font-size: 1rem;
-  
-    transition: transform 0.2s ease-in-out;
-  }
-
-  .send-button:hover {
-    transform: scale(1.2);
-    color: var(--fourthColor);
-  }
-   */
-
 
   #chatForm.footer {
     display: flex;
@@ -493,30 +387,24 @@
     display: none;
   }
   
-
-  /* Apply margin-bottom to <br> tags inside .messages */
   .messages br {
     margin-bottom: 4px;
   }
   
-  /* Apply margin to <br> tags inside .messages except in the first three .message divs */
-  /* Remove the margin from the last <br> in the last .message.ai-message */
   .messages .message.user-message br,
-  .messages .message.ai-message:nth-child(-n+3) br,
-  .messages .message.ai-message:last-child br:last-of-type {
+  .messages .message.system-message:nth-child(-n+3) br,
+  .messages .message.system-message:last-child br:last-of-type {
       margin-bottom: 0;
   }
 
-  /* Chatbot boxes design */
-  /* Container for the chatbot boxes */
   .chatbotDesignBoxes {
     position: absolute;
     display: flex;
-    gap: 5px; /* Space between the boxes */
-    justify-content: center; /* Center the boxes horizontally */
-    transform: rotate(145deg); /* Apply the 45deg rotation to the parent container */
-    flex-wrap: wrap; /* Allow wrapping if needed */
-    align-items: center; /* Align items vertically */
+    gap: 5px; 
+    justify-content: center; 
+    transform: rotate(145deg); 
+    flex-wrap: wrap; 
+    align-items: center; 
 
     right: 70%;
   }
@@ -524,25 +412,25 @@
   .chatbotDesignBox {
     width: 100px;
     height: 100px;
-    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-    backdrop-filter: blur(15px); /* Stronger blur effect */
-    border-radius: 15px; /* Rounded corners */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border for contrast */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow for more depth */
-    flex-shrink: 0; /* Prevent the boxes from shrinking */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 15px; 
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+    flex-shrink: 0; 
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
 
-  /* Hover effect to give a floating feel */
+
   .chatbotDesignBox:hover {
-    transform: translateY(-10px); /* Lift the box when hovered */
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); /* Increase shadow on hover */
+    transform: translateY(-10px); 
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); 
   }
 
   .no-scroll{
     overflow: hidden;
   }
-  /* Chatbot thinking animation */
+
   .thinking {
     background: transparent;
     border: none;
@@ -635,7 +523,7 @@
       display: none;
     }
     
-    /* Mobile version */
+
     .mobileVersion {
       display: flex;
       position: static;
@@ -656,7 +544,7 @@
     .mobileVersion.open {
       transform: translateX(0%);
       height: 40px;
-      /* padding-top: 5px; */
+     
     }
 
     .questions {
@@ -686,17 +574,17 @@
   </style>
 </head>
 <body>
-  <!-- AI Assistant Toggle Button as a Chat Bubble Icon -->
+
   <button class="toggle-button" id="toggleButton" onclick="toggleChatbox()">
     <i class="fas fa-comment" id="commentIcon"></i>
   </button>
 
-  <!-- AI Assistant Chatbox -->
+
   <div class="container" id="chatContainer">
     <div class="header">
       <img src="https://impro.usercontent.one/appid/oneComWsb/domain/zellosystems.se/media/zellosystems.se/onewebmedia/Ska%CC%88rmavbild_2024-12-21_kl._14.47.42-removebg-preview.png?etag=W%2F%221804b-6766c730%22&sourceContentType=image%2Fpng&ignoreAspectRatio&resize=380%2B84"
             alt="Zello Sytems AB" width="160">
-      <!-- <h2>Zello Systems AB</h2> -->
+
 
       <button id="toggleQuestionsSuggestionsBtn" class="questionBar-toggle rotateToggleQuestions hide" onclick="toggleQuestionSuggestion()">
         &#8942;
@@ -714,7 +602,7 @@
       </div>
 
       <div class="messages" id="messages">
-        <!-- Messages will be dynamically inserted here -->
+   
       </div>
     </div>
       <div class="questionsBody mobileVersion hide" id="questionsBody">
@@ -738,7 +626,7 @@
 
   <div class="questionsBody desktopVersion hide" id="questionsBody">
     <div class="questions" id="questions">
-      <!-- Questions will be dynamically inserted here -->
+
       <div class="placeholder"></div>
       <div class="placeholder"></div>
       <div class="placeholder"></div>
@@ -746,35 +634,34 @@
   </div>
 
   <script>
-    // API URL and endpoints
+
     let apiURL = 'https://zs-aichatbot-o6e4mcsu0-mkaans-projects.vercel.app';
-    apiURL = 'https://zs-aichatbot.onrender.com';
-    //ALternative - Other render account connected to "Taspunar" github account
     apiURL = 'https://zs-chatbot-backend.onrender.com';
-    // apiURL = 'http://localhost:8080';
 
     const endPoint = '/zellosystemsai';
     const endPointSavedData = '/getallsaveddata';
     const model_question_generate = '/generateRelatedQuestions';
 
-    let isInitialMessagesRendered = false;
-    let messages = [
-      { type: 'ai', text: 'Hej!'},
-      { type: 'ai', text: 'Jag är din AI-assistent.'},
-      { type: 'ai', text: 'Vad kan jag stå till tjänst med?'},
-    ];
+
+    let conversation = [];
+    localStorage.getItem('conversation') ? conversation = JSON.parse(localStorage.getItem('conversation')) : localStorage.setItem('conversation', JSON.stringify(conversation));
     
+    let isInitialMessagesRendered = false;
+    
+    let messages = [
+      { role: 'system', content: 'Hej!'},
+      { role: 'system', content: 'Jag är din AI-assistent.'},
+      { role: 'system', content: 'Vad kan jag stå till tjänst med?'},
+      ...conversation,
+    ];
+
     let keepQuestionsSuggestion = true;
-    // This will hold the recommended/most asked or question_related questions 
     let relatedQuestions = []; 
     let usedRelatedQuestions = [];
-    // This will hold the chat conversation
-    let conversation = [];  
-    // This is the user input field
+
     let chatInput = ''; 
     let aiGeneratedQuestion = false;
 
-    //UI
     const toggleButton = document.getElementById('toggleButton');
     const chatContainer = document.getElementById('chatContainer');
     const closeButton = document.getElementById('closeButton');
@@ -786,7 +673,7 @@
 
     let questionsBody = null;
     let questionsContainer = null;
-    // Function to update the variable based on screen size
+  
     const updateQuestionsBody = () => {
       if (!toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions")) {
         console.log(!toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions"));
@@ -805,9 +692,8 @@
       }
     };
 
-    // Initialize the variable on load
     updateQuestionsBody();
-    // Add an event listener to track screen size changes
+
     window.addEventListener("resize", updateQuestionsBody);
     
     const placeholder = document.querySelector('.placeholder');
@@ -816,18 +702,15 @@
     const addMessageWithTypingEffect = (message) => {
       return new Promise((resolve) => {
         const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', message.type === 'user' ? 'user-message' : 'ai-message');
+        messageDiv.classList.add('message', message.role === 'user' ? 'user-message' : 'system-message');
 
-        // Disables the send button under typing process
         if (sendButton) {
-          setAiBotThinking(true); // Disable button when the AI is typing
+          setAiBotThinking(true); 
         }
 
-        // Split the message by <br> to handle line breaks
-        const messageLines = message.text.split('<br>');
+        const messageLines = message.content.split('<br>');
 
-        // Lägg till en typ-writer-effekt för AI-meddelanden
-        if (message.type === 'ai') {
+        if (message.role === 'system') {
           let lineIndex = 0;
           let charIndex = 0;
 
@@ -835,23 +718,23 @@
             if (lineIndex < messageLines.length) {
               const currentLine = messageLines[lineIndex];
               
-              // Add the next character from the current line
+    
               if (charIndex < currentLine.length) {
                 messageDiv.innerHTML += currentLine[charIndex];
                 charIndex++;
-                setTimeout(typeCharacter, 10); // Wait for 20ms before typing the next character
+                setTimeout(typeCharacter, 10); 
               } else {
-                // Move to the next line when the current line is done
-                messageDiv.innerHTML += '<br><br>'; // Add a line break after the current line
+           
+                messageDiv.innerHTML += '<br><br>'; 
                 lineIndex++;
-                charIndex = 0; // Reset charIndex for the next line
-                setTimeout(typeCharacter, 10); // Wait a bit before starting the next line
+                charIndex = 0; 
+                setTimeout(typeCharacter, 10); 
               }
             } else {
-              resolve(); // Resolve the promise when typing is done
+              resolve();
               
-              // Re-enable the send button after typing process
-              setAiBotThinking(false); // Enable the button when typing is done
+
+              setAiBotThinking(false);
               renderQuestions();
             }
 
@@ -859,42 +742,64 @@
           };
           typeCharacter();
         } else {
-          // For user messages, display text immediately
-          messageDiv.innerHTML = message.text;
-          resolve(); // Resolve immediately if it's a user message
-          
-          // Re-enable the send button after user message
-          setAiBotThinking(false); // Enable the button immediately after user message
+
+          messageDiv.innerHTML = message.content;
+          resolve();
+
+          setAiBotThinking(false); 
         }
 
         messagesContainer.appendChild(messageDiv);
-        // Ensure text stays within the box and doesn't overflow
+
         messageDiv.style.wordWrap = 'break-word';
         messageDiv.style.whiteSpace = 'normal';  
 
-        // Scroll to the bottom using scrollIntoView for the last message
         setTimeout(() => {
           messageDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }, 50);
       });
     };
   
-    //Function to render the first initial messeages
-    const renderInitialMessages = async () => {
+    const startRenderingInitialMessages = () => {
       isInitialMessagesRendered = true;
+      if (conversation.length > 0) {
+        renderPreviousConversation();
+      } else {
+        renderInitialMessages();
+      }
+    };    
+
+    const renderInitialMessages = async () => {
       for (let i = 0; i < messages.length; i++) {
         const message = messages[i];
         await addMessageWithTypingEffect(message);
       }
     };
+    const renderPreviousConversation = async () => {
+      for (let i = 0; i < messages.length; i++) {
+        const message = messages[i];
 
-    // Function to render messages
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', message.role === 'user' ? 'user-message' : 'system-message');
+        messageDiv.innerHTML = message.content;
+        messagesContainer.appendChild(messageDiv);
+        messageDiv.style.wordWrap = 'break-word';
+        messageDiv.style.whiteSpace = 'normal';
+        setTimeout(() => {
+            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }, 50);
+      }
+
+      if(document.querySelector(".messagesBody").classList.contains("no-scroll")){
+          document.querySelector(".messagesBody").classList.remove("no-scroll");
+      }
+    };
+
     const renderMessages = () => {
       const lastMessage = messages[messages.length - 1]
       addMessageWithTypingEffect(lastMessage);
     };
   
-    // Function to render questions in the questions container
     const renderQuestions = () => {
 
       if(keepQuestionsSuggestion && chatContainer.classList.contains("open")){
@@ -963,7 +868,6 @@
       }, 1000);
     };
 
-    //Toggles the rotation of the questions suggestions button
     const toggleQuestionSuggestion = () => {
       if (keepQuestionsSuggestion) {
         keepQuestionsSuggestion = false;
@@ -982,14 +886,14 @@
     const handleSendMessage = () => {
       const messageText = inputField.value.trim();
       if (messageText) {
-        messages.push({ type: 'user', text: messageText });
+        messages.push({ role: 'user', content: messageText });
         inputField.value = '';
         renderMessages();
       }
     };
   
-    const toggleChatbox = () => {    
-      !isInitialMessagesRendered && renderInitialMessages();
+    const toggleChatbox = () => {          
+      !isInitialMessagesRendered && startRenderingInitialMessages();
 
       if (toggleButton.children[0].className == "fas fa-comment") {
         toggleButton.innerHTML = `
@@ -1002,7 +906,6 @@
       }
       
       const isChatboxClosed = chatContainer.classList.contains('open');
-      console.log(isChatboxClosed);
 
       if (isChatboxClosed) {
         chatContainer.classList.remove('open');
@@ -1062,11 +965,14 @@
         chatbotErrorDiv.classList.add("hide");
       }
       messages = [];
+      conversation = [];
+      localStorage.setItem('conversation', JSON.stringify(conversation));
+
       messagesContainer.innerHTML = "";
       messages.push(
-        { type: 'ai', text: 'Hej!'},
-        { type: 'ai', text: 'Jag är din AI-assistent.'},
-        { type: 'ai', text: 'Vad kan jag stå till tjänst med?'}
+        { role: 'system', content: 'Hej!'},
+        { role: 'system', content: 'Jag är din AI-assistent.'},
+        { role: 'system', content: 'Vad kan jag stå till tjänst med?'}
       );
       renderInitialMessages();
 
@@ -1081,33 +987,10 @@
       !toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions") && toggleQuestionSuggestionsBtn.classList.add("rotateToggleQuestions");
     }
 
-    // Stop propagation for clicks inside the chat container
     chatContainer.addEventListener('click', (event) => {
       event.stopPropagation();
     });
 
-    // Close the chatbox when clicking outside of it
-    // document.body.addEventListener('click', (event) => {
-    //   const isChatOpen = chatContainer.classList.contains('open');
-    //   const placeholderClicked = event.target.className == placeholder.className;
-      
-    //   if (isChatOpen && !chatContainer.contains(event.target) && event.target !== toggleButton && !placeholderClicked) {
-
-    //     questionsBody.classList.remove('open');
-    //     // questionsBody.classList.add('hide');
-    //     setTimeout(() => {
-    //       questionsBody.classList.add('hide');
-    //     }, 100);
-
-    //     chatContainer.classList.remove('open'); // Close the chatbox
-    //     // toggleButton.style.transform = 'translateX(0)'; // Reset the bubble position
-    //     toggleButton.innerHTML = `
-    //       <i class="fas fa-comment" id="commentIcon"></i>
-    //     `;
-    //   }
-    // });
-  
-    //Chatbotten
     let aibotThinking = false;
     const setAiBotThinking = (state) => {
       aibotThinking = state;
@@ -1136,60 +1019,8 @@
       }
     };
   
-    // const calculateTokens = (conversation) => {
-    //   const encodingMultiplier = 1.5; // Approximation: 1 word ≈ 1.5 tokens
-    //   return conversation.reduce((total, message) => {
-    //     const messageTokens = Math.ceil(message.role.length * encodingMultiplier) +
-    //                           Math.ceil(message.content.length * encodingMultiplier);
-    //     return total + messageTokens;
-    //   }, 0);
-    // };
-
-    // // Function to handle the chat submission
-    // const handleChatSubmit = (e) => {      
-    //   e.preventDefault();  
-
-    //   if (chatInput.trim() !== '') {
-    //     // Calculate tokens and check limits
-    //     const maxTokens = 8192; // Maximum allowed tokens for the model
-    //     const safetyMargin = 500; // Reserve tokens for the response
-    //     let tokenCount = calculateTokens(conversation);
-
-    //     const userMessage = { role: "user", content: chatInput };
-    //     // Check if conversation is empty and chatInput exceeds the limit
-    //     if (conversation.length === 0) {
-    //       const inputTokenCount = calculateTokens([userMessage]); // Token count of chatInput alone
-    //       if (inputTokenCount > maxTokens - safetyMargin) {
-    //         chatbotErrorDiv.classList.remove("hide");
-    //         chatbotErrorDiv.innerHTML = `
-    //           <p>Din fråga är för lång! Vänligen korta ner den.</p>
-    //         `;
-    //         return;
-    //       }
-    //     }
-
-    //     setAiBotThinking(true);
-    //     // Add the user message to conversation
-    //     conversation.push(userMessage);
-
-    //     if (tokenCount > maxTokens - safetyMargin) {
-    //       // Truncate conversation to stay within limits
-    //       while (tokenCount > maxTokens - safetyMargin) {
-    //         conversation.shift(); // Remove the oldest message
-    //         tokenCount = calculateTokens(conversation);
-    //       }
-    //     }
-
-    //     // Clear the input
-    //     handleSendMessage();
-
-    //     // Fire the fetch request
-    //     sendChatRequest(chatInput, conversation);
-    //   }
-    // };
-
     const calculateTokens = (conversation) => {
-      const encodingMultiplier = 1.5; // Approximation: 1 word ≈ 1.5 tokens
+      const encodingMultiplier = 1.5; 
       return conversation.reduce((total, message) => {
         const messageTokens = Math.ceil(message.role.length * encodingMultiplier) +
                               Math.ceil(message.content.length * encodingMultiplier);
@@ -1197,19 +1028,17 @@
       }, 0);
     };
 
-    // Function to handle the chat submission
     const handleChatSubmit = (e) => {      
       e.preventDefault();  
 
       if (chatInput.trim() !== '') {
-        const maxTokens = 8192; // Maximum allowed tokens for the model
-        const safetyMargin = 500; // Reserve tokens for the response
+        const maxTokens = 8192; 
+        const safetyMargin = 500; 
         const userMessage = { role: "user", content: chatInput };
 
-        // Calculate tokens for the conversation and new user message
         let tokenCount = calculateTokens(conversation);
 
-        const inputTokenCount = calculateTokens([userMessage]); // Token count of chatInput alone
+        const inputTokenCount = calculateTokens([userMessage]);
         if (inputTokenCount > maxTokens - safetyMargin) {
           chatbotErrorDiv.classList.remove("hide");
           chatbotErrorDiv.innerHTML = `
@@ -1218,22 +1047,17 @@
           return;
         }
 
-        // Add the user message to the conversation
         conversation.push(userMessage);
-        tokenCount += inputTokenCount; // Include the new message in the total token count
+        tokenCount += inputTokenCount;
 
-        // Truncate the conversation if token count exceeds the limit
+  
         while (tokenCount > maxTokens - safetyMargin) {
-          conversation.shift(); // Remove the oldest message
-          tokenCount = calculateTokens(conversation); // Recalculate token count
+          conversation.shift();
+          tokenCount = calculateTokens(conversation);
         }
 
         setAiBotThinking(true);
-
-        // Clear the input
         handleSendMessage();
-
-        // Fire the fetch request
         sendChatRequest(chatInput, conversation);
       }
     };
@@ -1273,7 +1097,10 @@
             .replace(/\n\n/g, '<br>');
 
           // Add the AI's response to the messages array
-          messages.push({ type: 'ai', text: cleanedAnswer });
+          messages.push({ role: 'system', content: cleanedAnswer });
+          conversation.push({ role: 'system', content: data.answer });
+
+          localStorage.setItem('conversation', JSON.stringify(conversation));
 
           // Re-render the messages
           renderMessages();
@@ -1351,10 +1178,9 @@
       }
     }
 
-    // Capture user input and update the chatInput variable
     inputField.addEventListener('input', (event) => {
       aiGeneratedQuestion = false;
-      chatInput = event.target.value;  // Update the chat input field's value     
+      chatInput = event.target.value;     
     });
   </script>
 </body>
