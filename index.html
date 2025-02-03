@@ -31,10 +31,6 @@
       --lightFontWeight:320;
     }
 
-    body {
-      background-color: rgb(0, 0, 0);
-    }
-
     .toggle-button {
       position: fixed;
       right: 15px;
@@ -676,7 +672,6 @@
   
     const updateQuestionsBody = () => {
       if (!toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions")) {
-        console.log(!toggleQuestionSuggestionsBtn.classList.contains("rotateToggleQuestions"));
         toggleQuestionSuggestionsBtn.click();
       }
       if (window.innerWidth >= 600) {
